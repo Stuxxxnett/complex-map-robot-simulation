@@ -10,7 +10,7 @@ A complete **autonomous robot navigation pipeline** in MATLAB — occupancy grid
 
 [![Watch the simulation](https://img.youtube.com/vi/YOUR_VIDEO_ID/maxresdefault.jpg)](YOUR_YOUTUBE_LINK_HERE)
 
-> After uploading to YouTube, replace `YOUR_YOUTUBE_LINK_HERE` with the full URL and `YOUR_VIDEO_ID` with just the ID from the URL (the part after `?v=`).
+> After uploading to YouTube, replace `https://youtu.be/f0okTLwB7oI` with the full URL and `f0okTLwB7oI` with just the ID from the URL (the part after `?v=`).
 
 ---
 
