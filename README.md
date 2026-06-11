@@ -16,7 +16,7 @@ A complete **autonomous robot navigation pipeline** in MATLAB — occupancy grid
 
 ## 🔧 System Pipeline
 
-![Pipeline](assets/pipeline_diagram.png)
+![Pipeline](results/assets/pipeline_diagram.png)
 
 ---
 
