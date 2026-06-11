@@ -6,9 +6,9 @@ A complete **autonomous robot navigation pipeline** in MATLAB — occupancy grid
 
 ## 📽️ Simulation Demo
 
-> ▶️ **[Watch on YouTube — Differential Drive Robot Simulation](YOUR_YOUTUBE_LINK_HERE)**
+> ▶️ **[Watch on YouTube — Differential Drive Robot Simulation](https://youtu.be/f0okTLwB7oI)**
 
-[![Watch the simulation](https://img.youtube.com/vi/YOUR_VIDEO_ID/maxresdefault.jpg)](YOUR_YOUTUBE_LINK_HERE)
+[![Watch the simulation](https://img.youtube.com/vi/f0okTLwB7oI/maxresdefault.jpg)](https://youtu.be/f0okTLwB7oI)
 
 > After uploading to YouTube, replace `https://youtu.be/f0okTLwB7oI` with the full URL and `f0okTLwB7oI` with just the ID from the URL (the part after `?v=`).
 
