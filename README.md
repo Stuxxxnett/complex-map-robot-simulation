@@ -10,9 +10,6 @@ A complete **autonomous robot navigation pipeline** in MATLAB — occupancy grid
 
 [![Watch the simulation](https://img.youtube.com/vi/f0okTLwB7oI/maxresdefault.jpg)](https://youtu.be/f0okTLwB7oI)
 
-> After uploading to YouTube, replace `https://youtu.be/f0okTLwB7oI` with the full URL and `f0okTLwB7oI` with just the ID from the URL (the part after `?v=`).
-
----
 
 ## 🔧 System Pipeline
 
