@@ -1,0 +1,32 @@
+# MATLAB generated files
+*.asv
+*.m~
+*.mex*
+*.mlapp
+slprj/
+sccprj/
+
+# Simulation video output
+robot_simulation.avi
+*.avi
+*.mp4
+
+# MATLAB code generation
+codegen/
+
+# Simulink
+*.slx.autosave
+*.slxc
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor files
+*.swp
+*.swo
+*~
+
+# Build outputs
+build/
