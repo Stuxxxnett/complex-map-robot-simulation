@@ -6,13 +6,13 @@ A complete autonomous robot navigation pipeline implemented in MATLAB, featuring
 
 ## System Pipeline
 
-![Pipeline Diagram](pipeline_diagram.png)
+![Pipeline Diagram](results/assets/pipeline_diagram.png)
 
 ---
 
 ## Project Overview
 
-This project simulates a mobile robot navigating through a complex maze-like environment with obstacles. It covers the full autonomy stack — from raw map ingestion to real-time simulation and quantitative analysis.
+This project simulates a mobile robot navigating through a complex maze-like environment with obstacles. It covers the full autonomy stack — from raw map ingestion to real-time simulation and quantitative performance analysis.
 
 ```
 Raw Map → Obstacle Inflation → Path Planning → Trajectory Generation → Robot Simulation → Analysis
@@ -39,17 +39,26 @@ complex-map-robot-simulation/
 ├── ComplexMapSimulation.mlx        ← MATLAB Live Script (recommended)
 ├── ComplexMapSimulation.m          ← Plain MATLAB script
 │
-├── 01_occupancy_grid.png           ← Raw binary occupancy map
-├── 05_simulation_final.png         ← Planned vs actual trajectory overlay
-├── pipeline_diagram.png            ← System architecture diagram
+├── results/
+│   ├── assets/
+│   │   └── pipeline_diagram.png
+│   └── plots/
+│       ├── 01_occupancy_grid.png
+│       ├── 02_inflated_map.png
+│       ├── 03_prm_path.png
+│       ├── 04_waypoint_headings.png
+│       ├── 05_simulation_final.png
+│       ├── 06_position_profile.png
+│       ├── 07_heading_profile.png
+│       ├── 08_distance_to_goal.png
+│       └── 09_rrtstar_path.png
 │
 ├── ALGORITHM_NOTES.md              ← Explanation of PRM, RRT, RRT*
-├── RESULTS_ANALYSIS.md             ← Quantitative analysis and writeup
-├── LICENSE
+├── RESULTS_ANALYSIS.md             ← Quantitative analysis writeup
+├── CHANGELOG.md
+├── .gitignore
 └── README.md
 ```
-
-> **Note:** Output figures and the simulation video (`robot_simulation.avi`) are generated locally when you run the script. See [How to Run](#how-to-run) below.
 
 ---
 
@@ -69,13 +78,22 @@ complex-map-robot-simulation/
 2. Open MATLAB and navigate to the repository folder
 3. Open `ComplexMapSimulation.mlx` (recommended) or `ComplexMapSimulation.m`
 4. Click **Run** or press `F5`
-5. The simulation will:
-   - Display all intermediate plots inline
-   - Run the robot simulation in real time
-   - Save `robot_simulation.avi` to your current directory
-6. All output figures can be saved individually using `saveas()` or MATLAB's figure export
+5. The simulation will display all intermediate plots, run the robot in real time, and save `robot_simulation.avi` to your current directory
 
-> Open `ComplexMapSimulation.mlx` (Live Script) for the best experience — outputs render inline alongside the code.
+> Open `ComplexMapSimulation.mlx` for the best experience — outputs render inline alongside the code.
+
+---
+
+## Demo Video
+
+Running the simulation generates `robot_simulation.avi` — a real-time recording of the robot navigating from start `[2, 2]` to goal `[24, 18]` through the complex map.
+
+```
+Final robot pose: x=24.01, y=17.51, theta=1.59
+Result: Robot reached the goal successfully
+```
+
+> To view the video, run the script locally and open the generated `.avi` file in MATLAB or any media player.
 
 ---
 
@@ -85,11 +103,17 @@ complex-map-robot-simulation/
 
 Loads MATLAB's built-in `complexMap` and converts it to a `binaryOccupancyMap` at 2 cells/meter resolution.
 
-![Occupancy Grid](01_occupancy_grid.png)
+![Raw Occupancy Grid](results/plots/01_occupancy_grid.png)
+
+---
 
 ### Step 2 — Map Inflation
 
 Inflates obstacles by the robot radius (0.5 m) so that path planning treats the robot as a point, guaranteeing collision-free clearance via Minkowski sum expansion.
+
+![Inflated Complex Map](results/plots/02_inflated_map.png)
+
+---
 
 ### Step 3 — PRM Path Planning
 
@@ -98,9 +122,17 @@ Uses a Probabilistic Roadmap (PRM) with 2000 nodes and a connection distance of 
 - **Start:** `[2, 2]` meters
 - **Goal:** `[24, 18]` meters
 
+![PRM Path](results/plots/03_prm_path.png)
+
+---
+
 ### Step 4 — Waypoint Trajectory
 
 Converts the PRM path into a full pose trajectory `[x, y, θ]` by computing heading angles between consecutive waypoints. Travel time is estimated at 0.5 m/s.
+
+![Waypoint Trajectory with Headings](results/plots/04_waypoint_headings.png)
+
+---
 
 ### Step 5 — Robot Simulation and Video
 
@@ -114,9 +146,41 @@ y(t+dt)  = y(t)  + v · sin(θ) · dt
 
 Every frame is captured and written to `robot_simulation.avi`.
 
+![Final Result: Planned vs Actual Path](results/plots/05_simulation_final.png)
+
+*Planned trajectory (blue dashed) vs actual robot path (magenta) overlay on the inflated map.*
+
+---
+
 ### Step 6 — Trajectory Analysis
 
-Generates position, heading, and distance-to-goal profiles. A metrics report is printed to the console at the end of each run:
+Generates position, heading, and distance-to-goal profiles. A full metrics report is printed at the end of each run.
+
+**X / Y Position Profile**
+
+![Robot Position Profile](results/plots/06_position_profile.png)
+
+**Heading Angle Profile**
+
+![Robot Heading Angle over Time](results/plots/07_heading_profile.png)
+
+**Distance to Goal Convergence**
+
+![Distance to Goal over Time](results/plots/08_distance_to_goal.png)
+
+---
+
+### Bonus — RRT and RRT* Comparison
+
+Runs both RRT and RRT* planners on the same map for side-by-side comparison against PRM.
+
+![RRT* Planned Path](results/plots/09_rrtstar_path.png)
+
+RRT* result: **33.91 meters**, **24 waypoints**.
+
+---
+
+## Results
 
 ```
 ============ FINAL ANALYSIS ============
@@ -131,31 +195,12 @@ Position error:         0.49 meters
 ========================================
 ```
 
-The robot successfully reaches the goal with a terminal position error of 0.49 m, well within the 0.5 m goal acceptance radius.
+The robot successfully reached the goal with a terminal position error of **0.49 m**, well within the 0.5 m acceptance radius.
 
-### Bonus — RRT and RRT* Comparison
-
-Runs both RRT and RRT* planners on the same map for side-by-side comparison against PRM. RRT* found a path of **33.91 meters** using **24 waypoints**.
-
----
-
-## Sample Output
-
-### Occupancy Grid and Path Planning
-
-| Raw Occupancy Grid | Inflated Map (robot radius = 0.5 m) |
-|---|---|
-| ![Occupancy Grid](01_occupancy_grid.png) | *(generated on run)* |
-
-| PRM Path | RRT* Path |
-|---|---|
-| *(generated on run)* | *(generated on run)* |
-
-### Simulation Result
-
-![Simulation Final](05_simulation_final.png)
-
-*Planned trajectory (blue) vs actual robot path overlay on the inflated map.*
+| Planner | Path Length | Waypoints |
+|---------|------------|-----------|
+| PRM     | 31.75 m    | —         |
+| RRT*    | 33.91 m    | 24        |
 
 ---
 
