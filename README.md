@@ -88,6 +88,8 @@ complex-map-robot-simulation/
 
 Running the simulation generates `robot_simulation.avi` — a real-time recording of the robot navigating from start `[2, 2]` to goal `[24, 18]` through the complex map.
 
+[![Differential Drive Robot Navigation Simulation — MATLAB](https://img.youtube.com/vi/f0okTLwB7oI/maxresdefault.jpg)](https://www.youtube.com/watch?v=f0okTLwB7oI)
+
 ```
 Final robot pose: x=24.01, y=17.51, theta=1.59
 Result: Robot reached the goal successfully
